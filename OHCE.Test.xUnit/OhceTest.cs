@@ -23,8 +23,8 @@ namespace OHCE.Test.xUnit
                          "ET le  est envoyé")]
         public void PalindromeTest()
         {
-            
-            var ohce = new Ohce();
+
+            Ohce ohce = new Ohce();
 
             // QUAND on entre un palindrome
             const string palindrome = "kayak";
@@ -38,5 +38,39 @@ namespace OHCE.Test.xUnit
             Assert.EndsWith("Bien dit",
                 sortie);
         }
+        [Fact(DisplayName = "QUAND on entre une chaine " +
+                         "ALORS Bonjour est renvoyée " +
+                         "ET la chaine est envoyée")]
+        public void DireBonjourTest()
+        {
+            Ohce ohce = new Ohce();
+
+            // QUAND on entre une chaine
+            const string chaine = "blabla";
+            var sortie = ohce.DireBonjour(chaine);
+
+            // ALORS Bonjour est renvoyé
+            // ET la chaine est envoyé
+            Assert.StartsWith(
+                "Bonjour",
+                sortie);
+            Assert.EndsWith(chaine,
+                sortie);
+        }
+        [Fact(DisplayName = "QUAND on entre une chaine " +
+                                 "ALORS Au revoir est renvoyé en dernier ")]
+        public void DireAuRevoirTest()
+        {
+            Ohce ohce = new Ohce();
+
+            // QUAND on entre une chaine
+            const string chaine = "blabla";
+            var sortie = ohce.DireAuRevoir(chaine);
+
+            // ALORS Au Revoir est renvoyé en dernier
+            Assert.EndsWith("Au revoir",
+                sortie);
+        }
+
     }
 }

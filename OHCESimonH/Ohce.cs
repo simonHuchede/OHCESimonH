@@ -36,5 +36,20 @@ namespace OHCESimonH
 
             return stringBuilder.ToString();
         }
+        public string DireBonjour(string input)
+        {
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append("Bonjour\n");
+            stringBuilder.Append(input);
+            return stringBuilder.ToString();
+        }
+
+        public string DireAuRevoir(string input)
+        {
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append(input + "\n");
+            stringBuilder.Append("Au revoir");
+            return stringBuilder.ToString();
+        }
     }
 }
