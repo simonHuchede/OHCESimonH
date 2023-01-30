@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Expressions.cs" />
+    <Compile Include="ILangue.cs" />
+    <Compile Include="langues\LangueAnglaise.cs" />
+    <Compile Include="langues\LangueFrancaise.cs" />
     <Compile Include="Ohce.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -8,6 +8,11 @@ namespace OHCESimonH
 {
     public class Ohce
     {
+        private readonly ILangue _langue;
+        public Ohce(ILangue langue)
+        {
+            _langue = langue;
+        }
         public Ohce()
         {
         }
@@ -32,14 +37,14 @@ namespace OHCESimonH
             );
             stringBuilder.Append(reversed + " \n");
             if (reversed.Equals(input))
-                stringBuilder.Append("Bien dit");
+                stringBuilder.Append(_langue.BienDit);
 
             return stringBuilder.ToString();
         }
         public string DireBonjour(string input)
         {
             var stringBuilder = new StringBuilder();
-            stringBuilder.Append("Bonjour\n");
+            stringBuilder.Append(_langue.Bonjour + "\n");
             stringBuilder.Append(input);
             return stringBuilder.ToString();
         }
@@ -48,7 +53,7 @@ namespace OHCESimonH
         {
             var stringBuilder = new StringBuilder();
             stringBuilder.Append(input + "\n");
-            stringBuilder.Append("Au revoir");
+            stringBuilder.Append(_langue.AuRevoir);
             return stringBuilder.ToString();
         }
     }

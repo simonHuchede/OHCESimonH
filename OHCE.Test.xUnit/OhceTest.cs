@@ -1,5 +1,8 @@
 using Xunit;
 using OHCESimonH;
+using System.Collections.Generic;
+using OHCE.Test.xUnit.Utilities;
+using OHCESimonH.langues;
 
 namespace OHCE.Test.xUnit
 {
@@ -17,14 +20,22 @@ namespace OHCE.Test.xUnit
             // ALORS elle est renvoyée en miroir
             Assert.Equal("otot", sortie);
         }
+        private static readonly IEnumerable<ILangue> Langues = new ILangue[]
+   {
+        new LangueAnglaise(),
+        new LangueFrancaise()
+   };
+        public static IEnumerable<object[]> LanguesSeules => new CartesianData(Langues);
 
-        [Fact(DisplayName = "QUAND on entre un palindrome " +
-                         "ALORS il est renvoyé " +
-                         "ET le  est envoyé")]
-        public void PalindromeTest()
+        [Theory(DisplayName = "ETANT DONNE un utilisateur parlant une langue" +
+                          "QUAND on entre un palindrome " +
+                          "ALORS il est renvoyé " +
+                          "ET le <bienDit> de cette langue est envoyé")]
+        [MemberData(nameof(LanguesSeules))]
+        public void PalindromeTest(ILangue langue)
         {
-
-            Ohce ohce = new Ohce();
+            // ETANT DONNE un utilisateur parlant <langue>
+            Ohce ohce = new Ohce(langue);
 
             // QUAND on entre un palindrome
             const string palindrome = "kayak";
@@ -35,40 +46,46 @@ namespace OHCE.Test.xUnit
             Assert.StartsWith(
                 palindrome,
                 sortie);
-            Assert.EndsWith("Bien dit",
+            Assert.EndsWith(langue.BienDit,
                 sortie);
         }
-        [Fact(DisplayName = "QUAND on entre une chaine " +
-                         "ALORS Bonjour est renvoyée " +
+        [Theory(DisplayName = "ETANT DONNE un utilisateur parlant une langue" +
+                         "QUAND on entre une chaine " +
+                         "ALORS <bonjour> de cette langue est renvoyé " +
                          "ET la chaine est envoyée")]
-        public void DireBonjourTest()
-        {
-            Ohce ohce = new Ohce();
+        [MemberData(nameof(LanguesSeules))]
+        public void DireBonjourTest(ILangue langue)
+        {   
+            // ETANT DONNE un utilisateur parlant <langue>
+            Ohce ohce = new Ohce(langue);
 
             // QUAND on entre une chaine
             const string chaine = "blabla";
             var sortie = ohce.DireBonjour(chaine);
 
-            // ALORS Bonjour est renvoyé
+            // ALORS <bonjour> de cette langue est renvoyé
             // ET la chaine est envoyé
             Assert.StartsWith(
-                "Bonjour",
+                langue.Bonjour,
                 sortie);
             Assert.EndsWith(chaine,
                 sortie);
         }
-        [Fact(DisplayName = "QUAND on entre une chaine " +
-                                 "ALORS Au revoir est renvoyé en dernier ")]
-        public void DireAuRevoirTest()
+        [Theory(DisplayName = "ETANT DONNE un utilisateur parlant une langue" + 
+                       "QUAND on entre une chaine " +
+                       "ALORS <auRevoir> dans cette langue est renvoyé en dernier ")]
+        [MemberData(nameof(LanguesSeules))]
+        public void DireAuRevoirTest(ILangue langue)
         {
-            Ohce ohce = new Ohce();
+            // ETANT DONNE un utilisateur parlant <langue>
+            Ohce ohce = new Ohce(langue);
 
             // QUAND on entre une chaine
             const string chaine = "blabla";
             var sortie = ohce.DireAuRevoir(chaine);
 
-            // ALORS Au Revoir est renvoyé en dernier
-            Assert.EndsWith("Au revoir",
+            // ALORS <auRevoir> dans cette langue est renvoyé en dernier
+            Assert.EndsWith(langue.AuRevoir,
                 sortie);
         }
 
