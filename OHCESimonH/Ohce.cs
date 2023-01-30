@@ -23,5 +23,18 @@ namespace OHCESimonH
 
             return stringBuilder.ToString();
         }
+
+        public string Palindrome(string input)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            string reversed = new string(
+                input.Reverse().ToArray()
+            );
+            stringBuilder.Append(reversed + " \n");
+            if (reversed.Equals(input))
+                stringBuilder.Append("Bien dit");
+
+            return stringBuilder.ToString();
+        }
     }
 }
