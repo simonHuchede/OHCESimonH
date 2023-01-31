@@ -9,9 +9,15 @@ namespace OHCESimonH
     public class Ohce
     {
         private readonly ILangue _langue;
+        private readonly PeriodeJournee _périodeJournée;
         public Ohce(ILangue langue)
         {
             _langue = langue;
+        }
+        public Ohce(ILangue langue,PeriodeJournee periodeJournee)
+        {
+            _langue = langue;
+            _périodeJournée = periodeJournee;
         }
         public Ohce()
         {
@@ -44,7 +50,7 @@ namespace OHCESimonH
         public string DireBonjour(string input)
         {
             var stringBuilder = new StringBuilder();
-            stringBuilder.Append(_langue.Bonjour + "\n");
+            stringBuilder.Append(_langue.DireBonjour(_périodeJournée) + "\n");
             stringBuilder.Append(input);
             return stringBuilder.ToString();
         }
@@ -53,7 +59,7 @@ namespace OHCESimonH
         {
             var stringBuilder = new StringBuilder();
             stringBuilder.Append(input + "\n");
-            stringBuilder.Append(_langue.AuRevoir);
+            stringBuilder.Append(_langue.DireAuRevoir(_périodeJournée));
             return stringBuilder.ToString();
         }
     }

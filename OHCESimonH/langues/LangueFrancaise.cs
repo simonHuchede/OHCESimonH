@@ -13,9 +13,51 @@ namespace OHCESimonH.langues
         public string BienDit => Expressions.Français.BienDit;
 
         /// <inheritdoc />
-        public string Bonjour => Expressions.Français.Bonjour;
+        public string DireBonjour(PeriodeJournee période)
+        {
+            switch (période)
+            {
+                case PeriodeJournee.Defaut:
+                    return Expressions.Français.Bonjour;
+
+                case PeriodeJournee.Matin:
+                    return Expressions.Français.Bonjour;
+
+                case PeriodeJournee.AprèsMidi:
+                    return Expressions.Français.BonAprèsMidi;
+
+                case PeriodeJournee.Soir:
+                    return Expressions.Français.Bonsoir;
+
+                case PeriodeJournee.Nuit:
+                    return Expressions.Français.BonneNuit;
+
+                default: return Expressions.Français.Bonjour;
+            }
+        }
 
         /// <inheritdoc />
-        public string AuRevoir => Expressions.Français.AuRevoir;
+        public string DireAuRevoir(PeriodeJournee période)
+        {
+            switch (période)
+            {
+                case PeriodeJournee.Defaut:
+                    return Expressions.Français.AuRevoir;
+
+                case PeriodeJournee.Matin:
+                    return Expressions.Français.BonneJournee;
+
+                case PeriodeJournee.AprèsMidi:
+                    return Expressions.Français.BonneApresMidi;
+
+                case PeriodeJournee.Soir:
+                    return Expressions.Français.BonneSoiree;
+
+                case PeriodeJournee.Nuit:
+                    return Expressions.Français.BonneNuit;
+
+                default: return Expressions.Français.AuRevoir;
+            }
+        }
     }
 }

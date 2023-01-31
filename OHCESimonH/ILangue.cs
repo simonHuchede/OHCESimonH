@@ -9,7 +9,7 @@ namespace OHCESimonH
     public interface ILangue
     {
         string BienDit { get; }
-        string Bonjour { get; }
-        string AuRevoir { get; }
+        string DireBonjour(PeriodeJournee période);
+        string DireAuRevoir(PeriodeJournee période);
     }
 }

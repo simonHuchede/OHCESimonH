@@ -10,9 +10,52 @@ namespace OHCESimonH.langues
     {   /// <inheritdoc />
         public string BienDit => Expressions.English.WellSaid;
         /// <inheritdoc />
-        public string Bonjour => Expressions.English.Hello;
+        public string DireBonjour(PeriodeJournee période)
+        {
+            switch (période)
+            {
+                case PeriodeJournee.Defaut:
+                    return Expressions.English.Hello;
+
+                case PeriodeJournee.Matin:
+                    return Expressions.English.GoodMorning;
+
+                case PeriodeJournee.AprèsMidi:
+                    return Expressions.English.GoodAfternoon;
+
+                case PeriodeJournee.Soir:
+                    return Expressions.English.GoodEvening;
+
+                case PeriodeJournee.Nuit:
+                    return Expressions.English.GoodNight;
+
+                default: return Expressions.English.Hello;
+            }
+        }
+
 
         /// <inheritdoc />
-        public string AuRevoir => Expressions.English.GoodBye;
+        public string DireAuRevoir(PeriodeJournee période)
+        {
+            switch (période)
+            {
+                case PeriodeJournee.Defaut:
+                    return Expressions.English.GoodBye;
+
+                case PeriodeJournee.Matin:
+                    return Expressions.English.HaveAGoodDay;
+
+                case PeriodeJournee.AprèsMidi:
+                    return Expressions.English.HaveAGoodAfternoon;
+
+                case PeriodeJournee.Soir:
+                    return Expressions.English.HaveAGoodEvening;
+
+                case PeriodeJournee.Nuit:
+                    return Expressions.English.HaveAGoodNight;
+
+                default: return Expressions.English.GoodBye;
+            }
+        }
     }
 }

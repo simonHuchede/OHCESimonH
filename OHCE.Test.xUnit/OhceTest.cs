@@ -3,6 +3,7 @@ using OHCESimonH;
 using System.Collections.Generic;
 using OHCE.Test.xUnit.Utilities;
 using OHCESimonH.langues;
+using OHCE.Test.xUnit.Builders;
 
 namespace OHCE.Test.xUnit
 {
@@ -25,17 +26,28 @@ namespace OHCE.Test.xUnit
         new LangueAnglaise(),
         new LangueFrancaise()
    };
+        private static readonly IEnumerable<PeriodeJournee> Périodes = new PeriodeJournee[]
+    {
+        PeriodeJournee.Matin,
+        PeriodeJournee.AprèsMidi,
+        PeriodeJournee.Soir,
+        PeriodeJournee.Nuit,
+        PeriodeJournee.Defaut
+    };
         public static IEnumerable<object[]> LanguesSeules => new CartesianData(Langues);
+        public static IEnumerable<object[]> LanguesEtPériodes => new CartesianData(Langues, Périodes);
 
         [Theory(DisplayName = "ETANT DONNE un utilisateur parlant une langue" +
-                          "QUAND on entre un palindrome " +
+                          "QUAND on entre un palindrome " +  
                           "ALORS il est renvoyé " +
                           "ET le <bienDit> de cette langue est envoyé")]
         [MemberData(nameof(LanguesSeules))]
         public void PalindromeTest(ILangue langue)
         {
             // ETANT DONNE un utilisateur parlant <langue>
-            Ohce ohce = new Ohce(langue);
+            Ohce ohce = new OhceBuilder()
+            .AyantPourLangue(langue)
+            .Build();
 
             // QUAND on entre un palindrome
             const string palindrome = "kayak";
@@ -50,42 +62,52 @@ namespace OHCE.Test.xUnit
                 sortie);
         }
         [Theory(DisplayName = "ETANT DONNE un utilisateur parlant une langue" +
+                         "Et que la periode de la journéee est <période>" +
                          "QUAND on entre une chaine " +
-                         "ALORS <bonjour> de cette langue est renvoyé " +
+                         "ALORS <bonjour> de cette langue à cette période est renvoyé " +
                          "ET la chaine est envoyée")]
-        [MemberData(nameof(LanguesSeules))]
-        public void DireBonjourTest(ILangue langue)
-        {   
+        [MemberData(nameof(LanguesEtPériodes))]
+        public void DireBonjourTest(ILangue langue, PeriodeJournee periodeJournee)
+        {
             // ETANT DONNE un utilisateur parlant <langue>
-            Ohce ohce = new Ohce(langue);
+            // Et que la periode de la journéee est <période>
+            Ohce ohce = new OhceBuilder()
+            .AyantPourLangue(langue)
+            .AyantPourPériodeDeLaJournée(periodeJournee)
+            .Build();
 
             // QUAND on entre une chaine
             const string chaine = "blabla";
             var sortie = ohce.DireBonjour(chaine);
 
-            // ALORS <bonjour> de cette langue est renvoyé
+            // ALORS <bonjour> de cette langue à cette période est renvoyé
             // ET la chaine est envoyé
             Assert.StartsWith(
-                langue.Bonjour,
+                langue.DireBonjour(periodeJournee),
                 sortie);
             Assert.EndsWith(chaine,
                 sortie);
         }
-        [Theory(DisplayName = "ETANT DONNE un utilisateur parlant une langue" + 
+        [Theory(DisplayName = "ETANT DONNE un utilisateur parlant une langue" +
+                       "Et que la periode de la journéee est <période>" +
                        "QUAND on entre une chaine " +
-                       "ALORS <auRevoir> dans cette langue est renvoyé en dernier ")]
-        [MemberData(nameof(LanguesSeules))]
-        public void DireAuRevoirTest(ILangue langue)
+                       "ALORS <auRevoir> dans cette langue à cette période est renvoyé en dernier ")]
+        [MemberData(nameof(LanguesEtPériodes))]
+        public void DireAuRevoirTest(ILangue langue, PeriodeJournee periodeJournee)
         {
             // ETANT DONNE un utilisateur parlant <langue>
-            Ohce ohce = new Ohce(langue);
+            //Et que la periode de la journéee est <période>
+            Ohce ohce = new OhceBuilder()
+            .AyantPourLangue(langue)
+            .AyantPourPériodeDeLaJournée(periodeJournee)
+            .Build();
 
             // QUAND on entre une chaine
             const string chaine = "blabla";
             var sortie = ohce.DireAuRevoir(chaine);
 
-            // ALORS <auRevoir> dans cette langue est renvoyé en dernier
-            Assert.EndsWith(langue.AuRevoir,
+            // ALORS <auRevoir> dans cette langue à cette période est renvoyé en dernier
+            Assert.EndsWith(langue.DireAuRevoir(periodeJournee),
                 sortie);
         }
 

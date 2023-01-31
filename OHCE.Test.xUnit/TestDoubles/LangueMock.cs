@@ -11,8 +11,8 @@ namespace OHCE.Test.xUnit.TestDoubles
     {
         public string BienDit { get; init; } = string.Empty;
 
-        public string Bonjour { get; init; } = string.Empty;
+        public string DireBonjour(PeriodeJournee période) => string.Empty;
 
-        public string AuRevoir { get; init; } = string.Empty;
+        public string DireAuRevoir(PeriodeJournee période) => string.Empty;
     }
 }
