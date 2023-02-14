@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OHCESimonH
+namespace OHCE.Test.xUnit.TestDoubles
 {
-    internal class Program
+    internal record LangueStub : LangueMock
     {
-        static void Main(string[] args)
-        {
-        }
     }
 }
